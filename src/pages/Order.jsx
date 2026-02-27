@@ -16,9 +16,7 @@ const Order = () => {
         setLoading(true);
         const response = await fetch("/api/get-availability");
         if (!response.ok) {
-          const text = await response.text();
-          console.error("API error:", text);
-          throw new Error("Failed to fetch availability");
+          throw new Error("Failed to fetch  order availability");
         }
         const results = await response.json();
         setSlots(results.data);
@@ -26,8 +24,6 @@ const Order = () => {
         // packages
         const { data } = await supabase.from("packages").select("*");
         if (!data.ok) {
-          const text = await data.text();
-          console.error("API error:", text);
           throw new Error("Failed to fetch availability");
         }
         setPackages(data);
