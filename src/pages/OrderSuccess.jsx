@@ -1,3 +1,4 @@
+import { QRCodeSVG } from "qrcode.react"; // in your JSX
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
@@ -39,6 +40,7 @@ const OrderSuccess = () => {
           <p>{order?.student_name}</p>
           <p>{order?.packages?.name}</p>
           <p>{order?.pickup_day}</p>
+          <QRCodeSVG value={order?.ticket_code} size={200} />
           <p>Succcess</p>
         </div>
       )}
