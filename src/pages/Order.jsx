@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+
 const Order = () => {
   const [formDetails, setFormDetails] = useState({});
   const [slots, setSlots] = useState([]);
@@ -7,17 +8,28 @@ const Order = () => {
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         // slots
         setLoading(true);
         const response = await fetch("/api/get-availability");
+        if (!response.ok) {
+          const text = await response.text();
+          console.error("API error:", text);
+          throw new Error("Failed to fetch availability");
+        }
         const results = await response.json();
         setSlots(results.data);
 
         // packages
         const { data } = await supabase.from("packages").select("*");
+        if (!data.ok) {
+          const text = await data.text();
+          console.error("API error:", text);
+          throw new Error("Failed to fetch availability");
+        }
         setPackages(data);
       } catch (err) {
         setError(err.message);
