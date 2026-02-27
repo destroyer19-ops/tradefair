@@ -27,13 +27,13 @@ const Order = () => {
         const { data, error: pkgError } = await supabase
           .from("packages")
           .select("*");
-        console.log("packages data:", data);
-        console.log("packages error:", pkgError);
+        // console.log("packages data:", data);
+        // console.log("packages error:", pkgError);
         if (pkgError) {
           throw new Error("Failed to fetch packages");
         }
         setPackages(data);
-        setPackages(data);
+        // setPackages(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -54,6 +54,8 @@ const Order = () => {
       });
 
       const data = await response.json();
+      console.log("API response:", data);
+      console.log("authorization_url:", data.authorization_url);
       window.location.href = data.authorization_url;
     } catch (error) {
       setError(error.message);
@@ -147,6 +149,8 @@ const Order = () => {
               name="package"
               id=""
             >
+              <option value="">Select a package</option>
+
               {packages.map((pkg) => (
                 <option key={pkg.id} value={pkg.id}>
                   {pkg.name}
@@ -166,6 +170,8 @@ const Order = () => {
               name="pickup_day"
               id=""
             >
+              <option value="">Select a Pickup day</option>
+
               {slots.map((slot) => (
                 <option
                   key={slot.id}
