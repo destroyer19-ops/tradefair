@@ -22,10 +22,15 @@ const Order = () => {
         setSlots(results.data);
 
         // packages
-        const { data } = await supabase.from("packages").select("*");
-        if (!data.ok) {
-          throw new Error("Failed to fetch availability");
+        // const { data } = await supabase.from("packages").select("*");
+        // packages
+        const { data, error: pkgError } = await supabase
+          .from("packages")
+          .select("*");
+        if (pkgError) {
+          throw new Error("Failed to fetch packages");
         }
+        setPackages(data);
         setPackages(data);
       } catch (err) {
         setError(err.message);
