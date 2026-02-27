@@ -120,13 +120,13 @@ const Order = () => {
           </div>
           <div>
             <input
-              value={formDetails.hall}
+              value={formDetails.hostel}
               onChange={(e) =>
-                setFormDetails({ ...formDetails, hall: e.target.value })
+                setFormDetails({ ...formDetails, hostel: e.target.value })
               }
               type="text"
-              name="hall"
-              placeholder="Hall"
+              name="hostel"
+              placeholder="Hostel"
             />
           </div>
           <div>
