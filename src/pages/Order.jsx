@@ -27,6 +27,8 @@ const Order = () => {
         const { data, error: pkgError } = await supabase
           .from("packages")
           .select("*");
+        console.log("packages data:", data);
+        console.log("packages error:", pkgError);
         if (pkgError) {
           throw new Error("Failed to fetch packages");
         }
