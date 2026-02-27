@@ -100,6 +100,7 @@ export default async function (req, res) {
           email: email,
           amount: packageData.price,
           reference: ticketCode,
+          callback_url: "https://tradefair-nu.vercel.app/order/success",
         }),
       },
     );
