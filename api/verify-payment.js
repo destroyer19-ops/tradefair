@@ -1,3 +1,4 @@
+import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
 
@@ -14,6 +15,7 @@ export default async function (req, res) {
   }
 
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const hash = crypto
       .createHmac("sha512", process.env.PAYSTACK_SECRET_KEY)
       .update(JSON.stringify(req.body))
@@ -33,11 +35,43 @@ export default async function (req, res) {
       if (updateError) {
         return res.status(500).json({ message: "Failed to update order" });
       }
+      const { data: orderData } = await supabase
+        .from("orders")
+        .select("*")
+        .eq("ticket_code", reference)
+        .single();
+      await resend.emails.send({
+        from: "ChopHub <onboarding@resend.dev>",
+        to: orderData.email,
+        subject: "🎫 Your ChopHub Ticket is Confirmed!",
+        html: `
+<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; background: #111; color: white; padding: 32px; border-radius: 12px;">
+  <h1 style="color: #f97316;">🎉 Order Confirmed!</h1>
+  <p>Hi ${orderData.student_name},</p>
+  <p>Your order has been confirmed. Here are your details:</p>
+  
+  <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 24px; margin: 24px 0;">
+    <p style="color: #f97316; font-size: 24px; font-weight: bold; margin: 0;">🎫 ${orderData.ticket_code}</p>
+    <p>📅 Pickup: Day ${orderData.pickup_day}</p>
+    <p>📍 Present this ticket code at the ChopHub stand</p>
+    <p>🎰 This ticket also enters you into the raffle draw!</p>
+    <img 
+  src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${orderData.ticket_code}" 
+  alt="Your ticket QR code"
+  style="margin: 16px 0;"
+/>
+  </div>
+
+  <p style="color: #999; font-size: 12px;">Keep this email safe. See you at the trade fair!</p>
+</div>
+`,
+      });
     }
     return res.status(200).json({ message: "Webhook received" });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Error occured in verify payment script" });
+    return res.status(500).json({
+      message: "Error occured in verify payment script",
+      error: error,
+    });
   }
 }
