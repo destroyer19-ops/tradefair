@@ -40,6 +40,7 @@ export default async function (req, res) {
         .select("*")
         .eq("ticket_code", reference)
         .single();
+      await supabase.rpc("increment_slot", { slot_day: orderData.pickup_day });
       await resend.emails.send({
         from: "ChopHub <onboarding@resend.dev>",
         to: orderData.email,
