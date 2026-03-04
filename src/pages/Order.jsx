@@ -225,6 +225,18 @@ const Order = () => {
               </p>
             )}
 
+            {submitting && (
+              <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center gap-4">
+                <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                <p className="text-white font-medium">
+                  Setting up your order...
+                </p>
+                <p className="text-gray-400 text-sm">
+                  You'll be redirected to payment shortly
+                </p>
+              </div>
+            )}
+
             <button
               type="submit"
               disabled={submitting}
