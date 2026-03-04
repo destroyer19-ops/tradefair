@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { supabase } from "../lib/supabase";
 
@@ -10,7 +10,8 @@ const Admin = () => {
   const [scanerror, setScanError] = useState(null);
   const [scannedOrder, setScannedOrder] = useState(null);
   const [orders, setOrders] = useState([]);
-  const lookupTicket = async (ticketCode) => {
+
+  const lookupTicket = useCallback(async (ticketCode) => {
     const { data, error } = await supabase
       .from("orders")
       .select("*, packages(name, description)")
@@ -20,7 +21,7 @@ const Admin = () => {
       setScanError("Ticket not found");
     }
     setScannedOrder(data);
-  };
+  }, []);
   useEffect(() => {
     if (!isAuthenticated) return;
 
@@ -58,7 +59,7 @@ const Admin = () => {
       (error) => console.log(error),
     );
     return () => scanner.clear();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, lookupTicket]);
   const handlLogin = (e) => {
     e.preventDefault();
     if (inputValue === ADMIN_PASSWORD) {
