@@ -10,24 +10,20 @@ const Admin = () => {
   const [scanerror, setScanError] = useState(null);
   const [scannedOrder, setScannedOrder] = useState(null);
   const [orders, setOrders] = useState([]);
-
+  const lookupTicket = async (ticketCode) => {
+    const { data, error } = await supabase
+      .from("orders")
+      .select("*, packages(name, description)")
+      .eq("ticket_code", ticketCode)
+      .single();
+    if (error) {
+      setScanError("Ticket not found");
+    }
+    setScannedOrder(data);
+  };
   useEffect(() => {
     if (!isAuthenticated) return;
-    const scanner = new Html5QrcodeScanner("reader", {
-      fps: 10,
-      qrbox: 250,
-    });
-    const lookupTicket = async (ticketCode) => {
-      const { data, error } = await supabase
-        .from("orders")
-        .select("*, packages(name, description)")
-        .eq("ticket_code", ticketCode)
-        .single();
-      if (error) {
-        setScanError("Ticket not found");
-      }
-      setScannedOrder(data);
-    };
+
     const fetchData = async () => {
       try {
         const { data, error } = await supabase
@@ -41,6 +37,16 @@ const Admin = () => {
         setScanError("Failed to load orders");
       }
     };
+
+    fetchData();
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    const scanner = new Html5QrcodeScanner("reader", {
+      fps: 10,
+      qrbox: 250,
+    });
     scanner.render(
       (decodedText) => {
         // decodedText is the ticket code
@@ -49,8 +55,6 @@ const Admin = () => {
       },
       (error) => console.log(error),
     );
-
-    fetchData();
     return () => scanner.clear();
   }, [isAuthenticated]);
   const handlLogin = (e) => {
