@@ -183,27 +183,27 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </div>
-      {/* Free Delivery Banner */}
-      <div className="mx-6 md:mx-24 rounded-2xl bg-orange-500 px-8 md:px-16 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div>
-          <p className="text-white text-xs font-bold tracking-widest mb-2">
-            LIMITED OFFER
-          </p>
-          <h2 className="text-white text-3xl font-bold mb-2">
-            Free Hostel Delivery 🚀
-          </h2>
-          <p className="text-orange-100 text-sm max-w-md">
-            The first 50 orders qualify for free delivery to a designated point
-            in your hostel. Order early to secure your spot.
-          </p>
+        {/* Free Delivery Banner */}
+        <div className="mx-6 md:mx-24 rounded-2xl bg-orange-500 px-8 md:px-16 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="text-white text-xs font-bold tracking-widest mb-2">
+              LIMITED OFFER
+            </p>
+            <h2 className="text-white text-3xl font-bold mb-2">
+              Free Hostel Delivery 🚀
+            </h2>
+            <p className="text-orange-100 text-sm max-w-md">
+              The first 50 orders qualify for free delivery to a designated
+              point in your hostel. Order early to secure your spot.
+            </p>
+          </div>
+          <Link
+            to="/order"
+            className="bg-white text-orange-500 font-bold px-8 py-4 rounded-full whitespace-nowrap hover:bg-orange-50 transition"
+          >
+            Order Now
+          </Link>
         </div>
-        <Link
-          to="/order"
-          className="bg-white text-orange-500 font-bold px-8 py-4 rounded-full whitespace-nowrap hover:bg-orange-50 transition"
-        >
-          Order Now
-        </Link>
       </div>
       {/* FAQ */}
       <div className="bg-[#0f0f0f] px-6 md:px-24 py-20">
