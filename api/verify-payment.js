@@ -1,7 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
 
-const Brevo = await import("@getbrevo/brevo");
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY,
@@ -40,9 +39,6 @@ export default async function (req, res) {
         .eq("ticket_code", reference)
         .single();
       await supabase.rpc("increment_slot", { slot_day: orderData.pickup_day });
-
-      const brevoClient = new Brevo.TransactionalEmailsApi();
-      brevoClient.authentications["apiKey"].apiKey = process.env.BREVO_API_KEY;
 
       await fetch("https://api.brevo.com/v3/smtp/email", {
         method: "POST",
