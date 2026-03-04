@@ -46,6 +46,8 @@ const Admin = () => {
     const scanner = new Html5QrcodeScanner("reader", {
       fps: 10,
       qrbox: 250,
+      rememberLastUsedCamera: true,
+      supportedScanTypes: [0],
     });
     scanner.render(
       (decodedText) => {
