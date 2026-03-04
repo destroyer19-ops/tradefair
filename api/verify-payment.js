@@ -1,3 +1,4 @@
+import * as Brevo from "@getbrevo/brevo";
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
@@ -41,31 +42,29 @@ export default async function (req, res) {
         .eq("ticket_code", reference)
         .single();
       await supabase.rpc("increment_slot", { slot_day: orderData.pickup_day });
-      await resend.emails.send({
-        from: "ChopHub <onboarding@resend.dev>",
-        to: orderData.email,
-        subject: "🎫 Your ChopHub Ticket is Confirmed!",
-        html: `
-<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; background: #111; color: white; padding: 32px; border-radius: 12px;">
-  <h1 style="color: #f97316;">🎉 Order Confirmed!</h1>
-  <p>Hi ${orderData.student_name},</p>
-  <p>Your order has been confirmed. Here are your details:</p>
-  
-  <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 24px; margin: 24px 0;">
-    <p style="color: #f97316; font-size: 24px; font-weight: bold; margin: 0;">🎫 ${orderData.ticket_code}</p>
-    <p>📅 Pickup: Day ${orderData.pickup_day}</p>
-    <p>📍 Present this ticket code at the ChopHub stand</p>
-    <p>🎰 This ticket also enters you into the raffle draw!</p>
-    <img 
-  src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${orderData.ticket_code}" 
-  alt="Your ticket QR code"
-  style="margin: 16px 0;"
-/>
-  </div>
 
-  <p style="color: #999; font-size: 12px;">Keep this email safe. See you at the trade fair!</p>
-</div>
-`,
+      const brevoClient = new Brevo.TransactionalEmailsApi();
+      brevoClient.authentications["apiKey"].apiKey = process.env.BREVO_API_KEY;
+
+      await brevoClient.sendTransacEmail({
+        sender: { name: "ChopHub", email: "agamahalvin@gmail.com" },
+        to: [{ email: orderData.email, name: orderData.student_name }],
+        subject: "🎫 Your ChopHub Ticket is Confirmed!",
+        htmlContent: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; background: #111; color: white; padding: 32px; border-radius: 12px;">
+          <h1 style="color: #f97316;">🎉 Order Confirmed!</h1>
+          <p>Hi ${orderData.student_name},</p>
+          <p>Your order has been confirmed. Here are your details:</p>
+          <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 24px; margin: 24px 0;">
+            <p style="color: #f97316; font-size: 24px; font-weight: bold;">🎫 ${orderData.ticket_code}</p>
+            <p>📅 Pickup: Day ${orderData.pickup_day}</p>
+            <p>📍 Present this ticket at the ChopHub stand</p>
+            <p>🎰 This ticket enters you into the raffle draw!</p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${orderData.ticket_code}" alt="QR Code" style="margin: 16px 0;"/>
+          </div>
+          <p style="color: #999; font-size: 12px;">Keep this email safe. See you at the trade fair!</p>
+        </div>
+    `,
       });
     }
     return res.status(200).json({ message: "Webhook received" });
