@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { supabase } from "../lib/supabase";
 
@@ -11,6 +11,7 @@ const Admin = () => {
   const [scannedOrder, setScannedOrder] = useState(null);
   const [orders, setOrders] = useState([]);
   const [ticketStatus, setTicketStatus] = useState(null); // 'valid' or 'used'
+  const isScanning = useRef(false);
 
   const lookupTicket = useCallback(async (ticketCode) => {
     const { data, error } = await supabase
@@ -29,6 +30,8 @@ const Admin = () => {
     if (scanData && scanData.length > 0) {
       setScanError("Ticket already scanned");
       setTicketStatus("used");
+      playBeep(false);
+
       setScannedOrder(data);
       return;
     }
@@ -37,9 +40,23 @@ const Admin = () => {
       scanned_by: "admin",
     });
     setTicketStatus("valid");
+    playBeep(true);
 
     setScannedOrder(data);
   }, []);
+  const playBeep = (success) => {
+    const context = new AudioContext();
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+
+    oscillator.frequency.value = success ? 1000 : 400; // high = valid, low = invalid
+    gain.gain.value = 0.3;
+    oscillator.start();
+    oscillator.stop(context.currentTime + 0.2);
+  };
   useEffect(() => {
     if (!isAuthenticated) return;
 
@@ -68,11 +85,16 @@ const Admin = () => {
       rememberLastUsedCamera: true,
       supportedScanTypes: [0],
     });
+
     scanner.render(
       (decodedText) => {
         // decodedText is the ticket code
+        if (isScanning.current) return;
+        isScanning.current = true;
         lookupTicket(decodedText);
-        // call your lookup function here
+        setTimeout(() => {
+          isScanning.current = false;
+        }, 3000); // call your lookup function here
       },
       (error) => console.log(error),
     );
