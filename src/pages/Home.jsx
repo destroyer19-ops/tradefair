@@ -126,15 +126,15 @@ const Home = () => {
       </div>
 
       <div className="bg-[#0f0f0f] px-6 md:px-24 py-20">
+        <div className="text-center mb-12">
+          <p className="text-orange-500 text-xs font-bold tracking-widest mb-3">
+            MENU
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white">
+            Our Packages
+          </h2>
+        </div>
         <div className="flex flex-col md:flex-row gap-8">
-          <div className="text-center mb-12">
-            <p className="text-orange-500 text-xs font-bold tracking-widest mb-3">
-              MENU
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              Our Packages
-            </h2>
-          </div>
           <div className="relative rounded-2xl overflow-hidden h-80">
             <img src="/package-a.jpg" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
@@ -163,7 +163,7 @@ const Home = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
               <p className="text-orange-500 text-xs font-bold tracking-widest mb-1">
-                PACKAGE A
+                PACKAGE B
               </p>
               <p className="text-xl font-bold mb-1">
                 Rice + Spicy Chickent + Salad
