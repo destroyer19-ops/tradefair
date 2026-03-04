@@ -73,6 +73,57 @@ const Home = () => {
           </div>
         </div>
       </div>
+      {/* How it works */}
+      <div className="bg-[#0f0f0f] px-6 md:px-24 py-20">
+        <div className="text-center mb-12">
+          <p className="text-orange-500 text-xs font-bold tracking-widest mb-3">
+            THE PROCESS
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white">
+            How it works
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 flex flex-col gap-4">
+            <span className="text-4xl">🛒</span>
+            <p className="text-orange-500 text-xs font-bold tracking-widest">
+              STEP 01
+            </p>
+            <h3 className="text-white text-xl font-bold">
+              Choose your package
+            </h3>
+            <p className="text-gray-400 text-sm">
+              Pick from our available meal packages and select your preferred
+              pickup day.
+            </p>
+          </div>
+
+          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 flex flex-col gap-4">
+            <span className="text-4xl">💳</span>
+            <p className="text-orange-500 text-xs font-bold tracking-widest">
+              STEP 02
+            </p>
+            <h3 className="text-white text-xl font-bold">Pay securely</h3>
+            <p className="text-gray-400 text-sm">
+              Complete your payment securely via card or bank transfer through
+              Paystack.
+            </p>
+          </div>
+
+          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 flex flex-col gap-4">
+            <span className="text-4xl">🎫</span>
+            <p className="text-orange-500 text-xs font-bold tracking-widest">
+              STEP 03
+            </p>
+            <h3 className="text-white text-xl font-bold">Get your ticket</h3>
+            <p className="text-gray-400 text-sm">
+              Receive your digital ticket via email with a QR code. Show it at
+              the stand to collect your meal.
+            </p>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
