@@ -126,22 +126,60 @@ const Home = () => {
       </div>
 
       <div className="bg-[#0f0f0f] px-6 md:px-24 py-20">
-        <div className="text-center mb-12">
+        <div className="flex flex-col md:flex-row gap-8">
+          <div className="text-center mb-12">
+            <p className="text-orange-500 text-xs font-bold tracking-widest mb-3">
+              MENU
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Our Packages
+            </h2>
+          </div>
           <div className="relative rounded-2xl overflow-hidden h-80">
             <img src="/package-a.jpg" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <p>Beef Rice + Spicy Chicken</p>
-              // text and button here
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <p className="text-orange-500 text-xs font-bold tracking-widest mb-1">
+                PACKAGE A
+              </p>
+              <p className="text-xl font-bold mb-1">Rice + Turkey</p>
+              <p className="text-gray-300 text-sm mb-4">
+                Served with your choice of sides
+              </p>
+              <div className="flex items-center justify-between">
+                <p className="text-orange-500 font-bold text-lg">₦7,200</p>
+                <Link
+                  to="/order"
+                  className="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-4 py-2 rounded-full transition"
+                >
+                  Order Now
+                </Link>
+              </div>
             </div>
           </div>
 
           <div className="relative rounded-2xl overflow-hidden h-80">
             <img src="/package-b.jpg" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <p>Beef Rice + Spicy Chicken + Eggs</p>
-              // text and button here
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <p className="text-orange-500 text-xs font-bold tracking-widest mb-1">
+                PACKAGE A
+              </p>
+              <p className="text-xl font-bold mb-1">
+                Rice + Spicy Chickent + Salad
+              </p>
+              <p className="text-gray-300 text-sm mb-4">
+                Served with your choice of sides
+              </p>
+              <div className="flex items-center justify-between">
+                <p className="text-orange-500 font-bold text-lg">₦8,00</p>
+                <Link
+                  to="/order"
+                  className="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-4 py-2 rounded-full transition"
+                >
+                  Order Now
+                </Link>
+              </div>
             </div>
           </div>
         </div>
