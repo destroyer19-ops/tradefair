@@ -253,6 +253,43 @@ const Home = () => {
           ))}
         </div>
       </div>
+
+      {/* Footer */}
+      <div className="bg-[#0a0a0a] border-t border-gray-800 px-6 md:px-24 py-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h3 className="text-orange-500 font-bold text-xl mb-1">
+              Maxie's Kitchen
+            </h3>
+            <p className="text-gray-400 text-sm">
+              Trade Fair 2026 — Pre-order your meal today
+            </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <a
+              href="https://wa.me/2348XXXXXXXXX"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition text-sm"
+            >
+              💬 Chat us on WhatsApp
+            </a>
+            <Link
+              to="/order"
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-full transition text-sm"
+            >
+              Place Order
+            </Link>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-800 mt-8 pt-6 text-center">
+          <p className="text-gray-600 text-xs">
+            © 2026 Maxie's Kitchen. All rights reserved.
+          </p>
+        </div>
+      </div>
     </>
   );
 };
