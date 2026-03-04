@@ -14,6 +14,34 @@ const Admin = () => {
   const [ticketStatus, setTicketStatus] = useState(null); // 'valid' or 'used'
   const isScanning = useRef(false);
 
+  const exportCSV = () => {
+    const headers = [
+      "Name",
+      "Matric Number",
+      "Package",
+      "Pickup Day",
+      "Ticket Code",
+      "Status",
+      "Phone",
+    ];
+    const rows = orders.map((order) => [
+      order.student_name,
+      order.matric_number,
+      order.packages?.name,
+      `Day ${order.pickup_day}`,
+      order.ticket_code,
+      order.payment_status,
+      order.phone_number,
+    ]);
+    const csvContent = [headers, ...rows].map((row) => row.join("")).join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "chophub-orders.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
   const lookupTicket = useCallback(async (ticketCode) => {
     const { data, error } = await supabase
       .from("orders")
@@ -146,6 +174,12 @@ const Admin = () => {
           Maxie's Kitchen Admin
         </h1>
         <p className="text-gray-400 text-sm">{orders.length} total orders</p>
+        <button
+          onClick={exportCSV}
+          className="bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white text-sm font-medium px-4 py-2 rounded-xl transition"
+        >
+          Export CSV
+        </button>
       </div>
 
       <div className="p-8 flex flex-col lg:flex-row gap-8">
