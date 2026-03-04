@@ -51,7 +51,7 @@ const OrderSuccess = () => {
           <div className="bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden">
             {/* Ticket header */}
             <div className="bg-orange-500 px-6 py-4 flex items-center justify-between">
-              <h2 className="font-bold text-lg">ChopHub</h2>
+              <h2 className="font-bold text-lg">Maxie's Kitchen</h2>
               <p className="text-sm opacity-80">Trade Fair 2026</p>
             </div>
 
@@ -127,7 +127,7 @@ const OrderSuccess = () => {
               href="/"
               className="text-gray-500 text-sm hover:text-orange-500 transition"
             >
-              ← Back to ChopHub
+              ← Back to Maxie's Kitchen
             </a>
           </div>
         </div>
