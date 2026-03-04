@@ -134,7 +134,7 @@ const Home = () => {
             Our Packages
           </h2>
         </div>
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col md:flex-row gap-8 items-center justify-center">
           <div className="relative rounded-2xl overflow-hidden h-80">
             <img src="/package-a.jpg" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
@@ -172,7 +172,7 @@ const Home = () => {
                 Served with your choice of sides
               </p>
               <div className="flex items-center justify-between">
-                <p className="text-orange-500 font-bold text-lg">₦8,00</p>
+                <p className="text-orange-500 font-bold text-lg">₦8,200</p>
                 <Link
                   to="/order"
                   className="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-4 py-2 rounded-full transition"
@@ -183,6 +183,27 @@ const Home = () => {
             </div>
           </div>
         </div>
+      </div>
+      {/* Free Delivery Banner */}
+      <div className="mx-6 md:mx-24 rounded-2xl bg-orange-500 px-8 md:px-16 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <p className="text-white text-xs font-bold tracking-widest mb-2">
+            LIMITED OFFER
+          </p>
+          <h2 className="text-white text-3xl font-bold mb-2">
+            Free Hostel Delivery 🚀
+          </h2>
+          <p className="text-orange-100 text-sm max-w-md">
+            The first 50 orders qualify for free delivery to a designated point
+            in your hostel. Order early to secure your spot.
+          </p>
+        </div>
+        <Link
+          to="/order"
+          className="bg-white text-orange-500 font-bold px-8 py-4 rounded-full whitespace-nowrap hover:bg-orange-50 transition"
+        >
+          Order Now
+        </Link>
       </div>
     </>
   );
