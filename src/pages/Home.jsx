@@ -124,6 +124,28 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      <div className="bg-[#0f0f0f] px-6 md:px-24 py-20">
+        <div className="text-center mb-12">
+          <div className="relative rounded-2xl overflow-hidden h-80">
+            <img src="/package-a.jpg" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <p>Beef Rice + Spicy Chicken</p>
+              // text and button here
+            </div>
+          </div>
+
+          <div className="relative rounded-2xl overflow-hidden h-80">
+            <img src="/package-b.jpg" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <p>Beef Rice + Spicy Chicken + Eggs</p>
+              // text and button here
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
