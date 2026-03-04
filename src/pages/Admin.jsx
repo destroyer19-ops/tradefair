@@ -6,6 +6,7 @@ const Admin = () => {
   const ADMIN_PASSWORD = "Admin123";
   const [inputValue, setInputValue] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [manualInput, setManualInput] = useState("");
   const [error, setError] = useState(null);
   const [scanerror, setScanError] = useState(null);
   const [scannedOrder, setScannedOrder] = useState(null);
@@ -94,7 +95,7 @@ const Admin = () => {
         lookupTicket(decodedText);
         setTimeout(() => {
           isScanning.current = false;
-        }, 3000); // call your lookup function here
+        }, 5000); // call your lookup function here
       },
       (error) => console.log(error),
     );
@@ -212,7 +213,26 @@ const Admin = () => {
             </div>
           )}
         </div>
-
+        <div className="flex gap-2 mt-4">
+          <input
+            value={manualInput}
+            onChange={(e) => setManualInput(e.target.value.toUpperCase())}
+            placeholder="Enter ticket code manually"
+            className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500"
+            type="text"
+          />
+          <button
+            onClick={() => {
+              if (manualInput) {
+                lookupTicket(manualInput);
+                setManualInput("");
+              }
+            }}
+            className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 rounded-xl"
+          >
+            Check
+          </button>
+        </div>
         {/* Right — Orders list */}
         <div className="lg:w-1/2 flex flex-col gap-4">
           <p className="text-orange-500 text-xs font-bold tracking-widest">
