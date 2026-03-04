@@ -205,6 +205,54 @@ const Home = () => {
           Order Now
         </Link>
       </div>
+      {/* FAQ */}
+      <div className="bg-[#0f0f0f] px-6 md:px-24 py-20">
+        <div className="text-center mb-12">
+          <p className="text-orange-500 text-xs font-bold tracking-widest mb-3">
+            FAQ
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white">
+            Frequently Asked Questions
+          </h2>
+        </div>
+
+        <div className="max-w-3xl mx-auto flex flex-col gap-4">
+          {[
+            {
+              q: "How do I place an order?",
+              a: "Click the 'Place your order' button, fill in your details, select your package and pickup day, then complete payment securely via Paystack.",
+            },
+            {
+              q: "How will I receive my ticket?",
+              a: "After successful payment, your ticket with a unique QR code will be sent to your email address automatically.",
+            },
+            {
+              q: "How do I pick up my order?",
+              a: "Come to the ChopHub stand on your chosen pickup day and show your QR code ticket. Our team will scan it and hand you your meal.",
+            },
+            {
+              q: "What is the raffle draw?",
+              a: "Every ticket automatically enters you into a raffle draw happening live at the stand. Winners get a special prize!",
+            },
+            {
+              q: "Can I get free delivery?",
+              a: "Yes! The first 50 orders qualify for free delivery to a designated point in your hostel. Order early to secure your spot.",
+            },
+            {
+              q: "What if I have issues with my order?",
+              a: "Reach out to us directly on WhatsApp and we'll sort it out as quickly as possible.",
+            },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="bg-gray-900 border border-gray-800 rounded-2xl p-6"
+            >
+              <p className="text-white font-bold mb-2">{item.q}</p>
+              <p className="text-gray-400 text-sm">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   );
 };
