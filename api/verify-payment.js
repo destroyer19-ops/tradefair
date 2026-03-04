@@ -1,8 +1,7 @@
-import * as Brevo from "@getbrevo/brevo";
-import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
 
+const Brevo = await import("@getbrevo/brevo");
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY,
@@ -16,7 +15,6 @@ export default async function (req, res) {
   }
 
   try {
-    const resend = new Resend(process.env.RESEND_API_KEY);
     const hash = crypto
       .createHmac("sha512", process.env.PAYSTACK_SECRET_KEY)
       .update(JSON.stringify(req.body))
@@ -46,11 +44,17 @@ export default async function (req, res) {
       const brevoClient = new Brevo.TransactionalEmailsApi();
       brevoClient.authentications["apiKey"].apiKey = process.env.BREVO_API_KEY;
 
-      await brevoClient.sendTransacEmail({
-        sender: { name: "ChopHub", email: "agamahalvin@gmail.com" },
-        to: [{ email: orderData.email, name: orderData.student_name }],
-        subject: "🎫 Your ChopHub Ticket is Confirmed!",
-        htmlContent: `
+      await fetch("https://api.brevo.com/v3/smtp/email", {
+        method: "POST",
+        headers: {
+          "api-key": process.env.BREVO_API_KEY,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sender: { name: "ChopHub", email: "agamahalvin@gmail.com" },
+          to: [{ email: orderData.email, name: orderData.student_name }],
+          subject: "🎫 Your ChopHub Ticket is Confirmed!",
+          htmlContent: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; background: #111; color: white; padding: 32px; border-radius: 12px;">
           <h1 style="color: #f97316;">🎉 Order Confirmed!</h1>
           <p>Hi ${orderData.student_name},</p>
@@ -65,6 +69,7 @@ export default async function (req, res) {
           <p style="color: #999; font-size: 12px;">Keep this email safe. See you at the trade fair!</p>
         </div>
     `,
+        }),
       });
     }
     return res.status(200).json({ message: "Webhook received" });
