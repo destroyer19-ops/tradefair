@@ -19,7 +19,7 @@ const Home = () => {
             <h6 className="font-medium px-4 py-1 text-orange-500 bg-white rounded-full">
               Trade Fair 2026
             </h6>
-            <h1 className="text-4xl md:text-6xl font-bold">ChopHub</h1>
+            <h1 className="text-4xl md:text-6xl font-bold">Maxie's Kitchen</h1>
             <p className="text-gray-300 font-normal text-lg">
               Order your meal in advance, skip the queue
             </p>

@@ -142,7 +142,9 @@ const Admin = () => {
     <div className="min-h-screen bg-[#0f0f0f] text-white">
       {/* Header */}
       <div className="px-8 py-5 border-b border-gray-800 flex items-center justify-between">
-        <h1 className="text-orange-500 font-bold text-xl">ChopHub Admin</h1>
+        <h1 className="text-orange-500 font-bold text-xl">
+          Maxie's Kitchen Admin
+        </h1>
         <p className="text-gray-400 text-sm">{orders.length} total orders</p>
       </div>
 
@@ -212,26 +214,26 @@ const Admin = () => {
               <p className="text-red-400">{scanerror}</p>
             </div>
           )}
-        </div>
-        <div className="flex gap-2 mt-4">
-          <input
-            value={manualInput}
-            onChange={(e) => setManualInput(e.target.value.toUpperCase())}
-            placeholder="Enter ticket code manually"
-            className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500"
-            type="text"
-          />
-          <button
-            onClick={() => {
-              if (manualInput) {
-                lookupTicket(manualInput);
-                setManualInput("");
-              }
-            }}
-            className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 rounded-xl"
-          >
-            Check
-          </button>
+          <div className="flex gap-2 mt-4">
+            <input
+              value={manualInput}
+              onChange={(e) => setManualInput(e.target.value.toUpperCase())}
+              placeholder="Enter ticket code manually"
+              className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500"
+              type="text"
+            />
+            <button
+              onClick={() => {
+                if (manualInput) {
+                  lookupTicket(manualInput);
+                  setManualInput("");
+                }
+              }}
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 rounded-xl"
+            >
+              Check
+            </button>
+          </div>
         </div>
         {/* Right — Orders list */}
         <div className="lg:w-1/2 flex flex-col gap-4">

@@ -68,7 +68,7 @@ const Order = () => {
     <div className="min-h-screen bg-[#0f0f0f] text-white">
       {/* Header */}
       <div className="px-6 md:px-24 py-6 border-b border-gray-800 flex items-center justify-between">
-        <h2 className="text-orange-500 font-bold text-xl">ChopHub</h2>
+        <h2 className="text-orange-500 font-bold text-xl">Maxie's Kitchen</h2>
         <p className="text-gray-400 text-sm">Trade Fair 2026</p>
       </div>
 
