@@ -47,9 +47,9 @@ export default async function (req, res) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          sender: { name: "ChopHub", email: "agamahalvin@gmail.com" },
+          sender: { name: "Maxie's Kitchen", email: "agamahalvin@gmail.com" },
           to: [{ email: orderData.email, name: orderData.student_name }],
-          subject: "🎫 Your ChopHub Ticket is Confirmed!",
+          subject: "🎫 Your Maxie's Kitchen Ticket is Confirmed!",
           htmlContent: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; background: #111; color: white; padding: 32px; border-radius: 12px;">
           <h1 style="color: #f97316;">🎉 Order Confirmed!</h1>
@@ -58,7 +58,7 @@ export default async function (req, res) {
           <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 24px; margin: 24px 0;">
             <p style="color: #f97316; font-size: 24px; font-weight: bold;">🎫 ${orderData.ticket_code}</p>
             <p>📅 Pickup: Day ${orderData.pickup_day}</p>
-            <p>📍 Present this ticket at the ChopHub stand</p>
+            <p>📍 Present this ticket at the Maxie's Kitchen stand</p>
             <p>🎰 This ticket enters you into the raffle draw!</p>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${orderData.ticket_code}" alt="QR Code" style="margin: 16px 0;"/>
           </div>

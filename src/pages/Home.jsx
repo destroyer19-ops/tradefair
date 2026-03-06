@@ -134,7 +134,7 @@ const Home = () => {
             Our Packages
           </h2>
         </div>
-        <div className="flex flex-col md:flex-row gap-8 items-center justify-center">
+        <div className="flex mb-6 flex-col md:flex-row gap-8 items-center justify-center">
           <div className="relative rounded-2xl overflow-hidden h-80">
             <img src="/package-a.jpg" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
@@ -228,7 +228,7 @@ const Home = () => {
             },
             {
               q: "How do I pick up my order?",
-              a: "Come to the ChopHub stand on your chosen pickup day and show your QR code ticket. Our team will scan it and hand you your meal.",
+              a: "Come to the Maxie's Kitchen stand on your chosen pickup day and show your QR code ticket. Our team will scan it and hand you your meal.",
             },
             {
               q: "What is the raffle draw?",
