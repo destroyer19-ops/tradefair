@@ -78,7 +78,7 @@ export default async function (req, res) {
         pickup_day: pickup_day,
         package_id: package_id,
         payment_status: "pending",
-        referrer: referrer || null,
+        referred_by: referrer || null,
       })
       .select();
 
