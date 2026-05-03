@@ -4,16 +4,8 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <>
-      <div className="overflow-hidden relative h-screen ">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover inset-0 absolute"
-          src="/hero-bg.mp4"
-        ></video>
-        <div className="absolute inset-0 bg-black/60"></div>
+      <div className="overflow-hidden relative h-screen bg-[#0a0a0a]">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-black to-black"></div>
         <div className="flex h-screen flex-col md:flex-row items-center">
           <div className="z-10 w-full md:w-1/2 relative gap-6 h-screen text-white flex flex-col text-center md:text-left items-center md:items-start pl-6 md:pl-24 justify-center pb-24">
             <h6 className="font-medium px-4 py-1 text-orange-500 bg-white rounded-full">
@@ -37,8 +29,8 @@ const Home = () => {
                 <p className="text-orange-500 text-xs font-bold tracking-widest">
                   PACKAGE A
                 </p>
-                <p>Rice + Turkey</p>
-                <p className="text-orange-500 font-bold">N 6,000</p>
+                <p>Rice + Pepper Soup</p>
+                <p className="text-orange-500 font-bold">N 5,200</p>
               </div>
               <div className="border border-white/20 rounded-xl p-4 mb-4">
                 <div className="flex items-center gap-2 mb-1">
@@ -49,8 +41,8 @@ const Home = () => {
                     Popular
                   </span>
                 </div>{" "}
-                <p>Rice + Turkey + Salad</p>
-                <p className="text-orange-500 font-bold">N 7,000</p>
+                <p>Beef Rice + Chicken</p>
+                <p className="text-orange-500 font-bold">N 7,680</p>
               </div>
             </div>
           </div>
@@ -136,18 +128,18 @@ const Home = () => {
         </div>
         <div className="flex mb-6 flex-col md:flex-row gap-8 items-center justify-center">
           <div className="relative rounded-2xl overflow-hidden h-80">
-            <img src="/package-a.jpg" className="w-full h-full object-cover" />
+            <img src="/package-a.jpg" className="w-full h-full object-cover" loading="lazy" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
               <p className="text-orange-500 text-xs font-bold tracking-widest mb-1">
                 PACKAGE A
               </p>
-              <p className="text-xl font-bold mb-1">Rice + Turkey</p>
+              <p className="text-xl font-bold mb-1">Rice + Pepper Soup</p>
               <p className="text-gray-300 text-sm mb-4">
-                Served with your choice of sides
+                Served hot with spicy pepper soup
               </p>
               <div className="flex items-center justify-between">
-                <p className="text-orange-500 font-bold text-lg">₦7,200</p>
+                <p className="text-orange-500 font-bold text-lg">₦5,200</p>
                 <Link
                   to="/order"
                   className="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-4 py-2 rounded-full transition"
@@ -159,20 +151,20 @@ const Home = () => {
           </div>
 
           <div className="relative rounded-2xl overflow-hidden h-80">
-            <img src="/package-b.jpg" className="w-full h-full object-cover" />
+            <img src="/package-b.jpg" className="w-full h-full object-cover" loading="lazy" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
               <p className="text-orange-500 text-xs font-bold tracking-widest mb-1">
                 PACKAGE B
               </p>
               <p className="text-xl font-bold mb-1">
-                Rice + Spicy Chickent + Salad
+                Beef Rice + Chicken
               </p>
               <p className="text-gray-300 text-sm mb-4">
-                Served with your choice of sides
+                Rich beef rice with grilled chicken
               </p>
               <div className="flex items-center justify-between">
-                <p className="text-orange-500 font-bold text-lg">₦8,200</p>
+                <p className="text-orange-500 font-bold text-lg">₦7,680</p>
                 <Link
                   to="/order"
                   className="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-4 py-2 rounded-full transition"
@@ -220,7 +212,7 @@ const Home = () => {
           {[
             {
               q: "How do I place an order?",
-              a: "Click the 'Place your order' button, fill in your details, select your package and pickup day, then complete payment securely via Paystack.",
+              a: "Click the 'Place your order' button, fill in your details, select your package and pickup day, then complete payment securely via Flutterwave. We recommend bank transfer for a faster experience.",
             },
             {
               q: "How will I receive my ticket?",
@@ -229,10 +221,6 @@ const Home = () => {
             {
               q: "How do I pick up my order?",
               a: "Come to the Maxie's Kitchen stand on your chosen pickup day and show your QR code ticket. Our team will scan it and hand you your meal.",
-            },
-            {
-              q: "What is the raffle draw?",
-              a: "Every ticket automatically enters you into a raffle draw happening live at the stand. Winners get a special prize!",
             },
             {
               q: "Can I get free delivery?",
@@ -268,7 +256,7 @@ const Home = () => {
 
           <div className="flex flex-col md:flex-row items-center gap-6">
             <a
-              href="https://wa.me/2348XXXXXXXXX"
+              href="https://wa.me/2349033101546"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition text-sm"
@@ -283,6 +271,57 @@ const Home = () => {
             </Link>
           </div>
         </div>
+
+        <div className="border-t border-gray-800 mt-8 pt-6 text-center">
+          <p className="text-gray-600 text-xs">
+            © 2026 Maxie's Kitchen. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Home;
+v>
+
+        <div className="border-t border-gray-800 mt-8 pt-6 text-center">
+          <p className="text-gray-600 text-xs">
+            © 2026 Maxie's Kitchen. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Home;
+el="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition text-sm"
+            >
+              💬 Chat us on WhatsApp
+            </a>
+            <Link
+              to="/order"
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-full transition text-sm"
+            >
+              Place Order
+            </Link>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-800 mt-8 pt-6 text-center">
+          <p className="text-gray-600 text-xs">
+            © 2026 Maxie's Kitchen. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Home;
+v>
 
         <div className="border-t border-gray-800 mt-8 pt-6 text-center">
           <p className="text-gray-600 text-xs">

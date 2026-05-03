@@ -33,6 +33,7 @@ export default async function (req, res) {
       room_number,
       pickup_day,
       package_id,
+      referrer,
     } = req.body;
     if (
       !student_name ||
@@ -77,6 +78,7 @@ export default async function (req, res) {
         pickup_day: pickup_day,
         package_id: package_id,
         payment_status: "pending",
+        referrer: referrer || null,
       })
       .select();
 

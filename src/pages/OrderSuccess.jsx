@@ -1,14 +1,17 @@
-import { QRCodeSVG } from "qrcode.react"; // in your JSX
-import React, { useEffect, useState } from "react";
+import { QRCodeSVG } from "qrcode.react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import html2canvas from "html2canvas";
+import confetti from "canvas-confetti";
 
 const OrderSuccess = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  // const reference = searchParams.get("reference");
+  const [searchParams] = useSearchParams();
   const reference = searchParams.get("tx_ref") || searchParams.get("reference");
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [downloading, setDownloading] = useState(false);
+  const ticketRef = useRef(null);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -21,6 +24,14 @@ const OrderSuccess = () => {
         if (error) throw new Error(error.message);
 
         setOrder(data);
+        
+        // Trigger confetti on successful load
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#f97316', '#ffffff', '#000000']
+        });
       } catch (err) {
         console.error(err);
       } finally {
@@ -28,9 +39,28 @@ const OrderSuccess = () => {
       }
     };
 
-    fetchOrder();
+    if (reference) fetchOrder();
   }, [reference]);
-  console.log(order);
+
+  const handleDownload = async () => {
+    if (!ticketRef.current) return;
+    setDownloading(true);
+    try {
+      const canvas = await html2canvas(ticketRef.current, {
+        backgroundColor: "#0f0f0f",
+        scale: 2, // Higher quality
+      });
+      const link = document.createElement("a");
+      link.download = `maxie-ticket-${order.ticket_code}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch (err) {
+      console.error("Download failed", err);
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-white flex items-center justify-center px-6 py-12">
       {loading ? (
@@ -48,88 +78,89 @@ const OrderSuccess = () => {
             </p>
           </div>
 
-          {/* Ticket card */}
-          <div className="bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden">
-            {/* Ticket header */}
-            <div className="bg-orange-500 px-6 py-4 flex items-center justify-between">
-              <h2 className="font-bold text-lg">Maxie's Kitchen</h2>
-              <p className="text-sm opacity-80">Trade Fair 2026</p>
-            </div>
-
-            {/* Ticket body */}
-            <div className="px-6 py-6 flex flex-col items-center gap-6">
-              {/* QR Code */}
-              <div className="bg-white p-4 rounded-xl">
-                <QRCodeSVG value={order.ticket_code} size={180} />
+          {/* Ticket card wrapper for capture */}
+          <div ref={ticketRef} className="p-4 bg-[#0f0f0f]">
+            <div className="bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden shadow-2xl">
+              {/* Ticket header */}
+              <div className="bg-orange-500 px-6 py-4 flex items-center justify-between">
+                <h2 className="font-bold text-lg text-white">Maxie's Kitchen</h2>
+                <p className="text-sm text-white/80">Trade Fair 2026</p>
               </div>
 
-              {/* Ticket code */}
-              <div className="text-center">
-                <p className="text-gray-400 text-xs tracking-widest mb-1">
-                  TICKET CODE
-                </p>
-                <p className="text-orange-500 text-2xl font-bold tracking-wider">
-                  {order.ticket_code}
-                </p>
-              </div>
-
-              {/* Divider */}
-              <div className="w-full border-t border-dashed border-gray-700"></div>
-
-              {/* Order details */}
-              <div className="w-full grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-gray-400 text-xs tracking-widest mb-1">
-                    NAME
-                  </p>
-                  <p className="font-medium">{order.student_name}</p>
+              {/* Ticket body */}
+              <div className="px-6 py-6 flex flex-col items-center gap-6">
+                {/* QR Code */}
+                <div className="bg-white p-4 rounded-xl shadow-inner">
+                  <QRCodeSVG value={order.ticket_code} size={180} />
                 </div>
-                <div>
-                  <p className="text-gray-400 text-xs tracking-widest mb-1">
-                    PACKAGE
-                  </p>
-                  <p className="font-medium">{order.packages?.name}</p>
-                </div>
-                <div>
-                  <p className="text-gray-400 text-xs tracking-widest mb-1">
-                    PICKUP DAY
-                  </p>
-                  <p className="font-medium">Day {order.pickup_day}</p>
-                </div>
-                <div>
-                  <p className="text-gray-400 text-xs tracking-widest mb-1">
-                    STATUS
-                  </p>
-                  <p className="text-green-400 font-medium">✓ Confirmed</p>
-                </div>
-              </div>
 
-              {/* Divider */}
-              <div className="w-full border-t border-dashed border-gray-700"></div>
+                {/* Ticket code */}
+                <div className="text-center">
+                  <p className="text-gray-400 text-xs tracking-widest mb-1">
+                    TICKET CODE
+                  </p>
+                  <p className="text-orange-500 text-2xl font-bold tracking-wider">
+                    {order.ticket_code}
+                  </p>
+                </div>
 
-              {/* Raffle note */}
-              <div className="w-full bg-gray-800 rounded-xl p-4 text-center">
-                <p className="text-sm text-gray-300">
-                  🎰 This ticket enters you into the{" "}
-                  <span className="text-orange-500 font-medium">
-                    raffle draw
-                  </span>
-                </p>
-                <p className="text-xs text-gray-500 mt-1">
-                  A copy has been sent to your email
-                </p>
+                {/* Divider */}
+                <div className="w-full border-t border-dashed border-gray-700"></div>
+
+                {/* Order details */}
+                <div className="w-full grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-gray-400 text-xs tracking-widest mb-1">
+                      NAME
+                    </p>
+                    <p className="font-medium text-sm truncate">{order.student_name}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-xs tracking-widest mb-1">
+                      PACKAGE
+                    </p>
+                    <p className="font-medium text-sm">{order.packages?.name}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-xs tracking-widest mb-1">
+                      PICKUP DAY
+                    </p>
+                    <p className="font-medium text-sm">Day {order.pickup_day}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-xs tracking-widest mb-1">
+                      STATUS
+                    </p>
+                    <p className="text-green-400 font-bold text-sm">✓ Confirmed</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Back to home */}
-          <div className="text-center mt-6">
-            <a
-              href="/"
-              className="text-gray-500 text-sm hover:text-orange-500 transition"
+          {/* Actions */}
+          <div className="flex flex-col gap-4 mt-8">
+            <button
+              onClick={handleDownload}
+              disabled={downloading}
+              className="w-full bg-white text-black font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-200 transition shadow-lg"
             >
-              ← Back to Maxie's Kitchen
-            </a>
+              {downloading ? (
+                "Generating Image..."
+              ) : (
+                <>
+                  <span>📥</span> Save Ticket to Gallery
+                </>
+              )}
+            </button>
+            <div className="text-center">
+              <a
+                href="/"
+                className="text-gray-500 text-sm hover:text-orange-500 transition"
+              >
+                ← Back to Maxie's Kitchen
+              </a>
+            </div>
           </div>
         </div>
       )}

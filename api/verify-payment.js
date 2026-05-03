@@ -66,7 +66,6 @@ export default async function (req, res) {
             <p style="color: #f97316; font-size: 24px; font-weight: bold;">🎫 ${orderData.ticket_code}</p>
             <p>📅 Pickup: Day ${orderData.pickup_day}</p>
             <p>📍 Present this ticket at the Maxie's Kitchen stand</p>
-            <p>🎰 This ticket enters you into the raffle draw!</p>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${orderData.ticket_code}" alt="QR Code" style="margin: 16px 0;"/>
           </div>
           <p style="color: #999; font-size: 12px;">Keep this email safe. See you at the trade fair!</p>

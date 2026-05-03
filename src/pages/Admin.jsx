@@ -16,19 +16,31 @@ const Admin = () => {
   const [ticketStatus, setTicketStatus] = useState(null); // 'valid' or 'used'
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterDay, setFilterDay] = useState("all");
+  const [filterReferrer, setFilterReferrer] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const isScanning = useRef(false);
+
+  const REFERRERS = ["Amy", "Ann", "Serena", "Eniola", "Ruth", "Cynthia"];
 
   const stats = useMemo(() => {
     const paidOrders = orders.filter((o) => o.payment_status === "paid");
     const totalRevenue = paidOrders.reduce((acc, o) => acc + (o.packages?.price || 0), 0);
-    const scannedCount = orders.filter(o => o.scanned).length; // This assumes a 'scanned' flag, we might need to fetch this from ticket_scans
+    const scannedCount = orders.filter(o => o.scanned).length;
+
+    // Referral stats
+    const referralCounts = paidOrders.reduce((acc, o) => {
+      if (o.referrer) {
+        acc[o.referrer] = (acc[o.referrer] || 0) + 1;
+      }
+      return acc;
+    }, {});
 
     return {
       total: orders.length,
       paid: paidOrders.length,
       revenue: totalRevenue / 100,
-      pending: orders.length - paidOrders.length
+      pending: orders.length - paidOrders.length,
+      referrals: referralCounts
     };
   }, [orders]);
 
@@ -36,14 +48,15 @@ const Admin = () => {
     return orders.filter((order) => {
       const matchStatus = filterStatus === "all" || order.payment_status === filterStatus;
       const matchDay = filterDay === "all" || order.pickup_day === parseInt(filterDay);
+      const matchReferrer = filterReferrer === "all" || order.referrer === filterReferrer;
       const matchSearch = 
         order.student_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         order.ticket_code.toLowerCase().includes(searchQuery.toLowerCase()) ||
         order.matric_number.toLowerCase().includes(searchQuery.toLowerCase());
       
-      return matchStatus && matchDay && matchSearch;
+      return matchStatus && matchDay && matchSearch && matchReferrer;
     });
-  }, [orders, filterStatus, filterDay, searchQuery]);
+  }, [orders, filterStatus, filterDay, filterReferrer, searchQuery]);
 
   const exportCSV = () => {
     const headers = [
@@ -54,6 +67,7 @@ const Admin = () => {
       "Ticket Code",
       "Status",
       "Phone",
+      "Referrer",
     ];
     const rows = orders.map((order) => [
       `"${order.student_name}"`,
@@ -63,6 +77,7 @@ const Admin = () => {
       `"${order.ticket_code}"`,
       `"${order.payment_status}"`,
       `"${order.phone_number}"`,
+      `"${order.referrer || "None"}"`,
     ]);
     const csvContent = [headers, ...rows]
       .map((row) => row.join(","))
@@ -295,6 +310,21 @@ const Admin = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Column — Scanner & Active Lookup */}
           <div className="lg:w-1/3 flex flex-col gap-6">
+            {/* Referral Leaderboard */}
+            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+              <p className="text-orange-500 text-xs font-bold tracking-widest uppercase mb-4">Referral Leaderboard</p>
+              <div className="flex flex-col gap-3">
+                {REFERRERS.map(name => (
+                  <div key={name} className="flex items-center justify-between">
+                    <span className="text-sm text-gray-400">{name}</span>
+                    <span className="bg-orange-500/10 text-orange-500 px-2 py-0.5 rounded text-xs font-bold">
+                      {stats.referrals[name] || 0}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <p className="text-orange-500 text-xs font-bold tracking-widest uppercase">QR SCANNER</p>
@@ -407,6 +437,17 @@ const Admin = () => {
                   <option value="2">Day 2</option>
                   <option value="3">Day 3</option>
                 </select>
+                <select 
+                  value={filterReferrer} 
+                  onChange={(e) => setFilterReferrer(e.target.value)}
+                  className="bg-gray-900 border border-gray-800 text-xs rounded-lg px-3 py-2 outline-none focus:border-orange-500"
+                >
+                  <option value="all">All Referrers</option>
+                  {REFERRERS.map(name => (
+                    <option key={name} value={name}>{name}</option>
+                  ))}
+                  <option value="">No Referrer</option>
+                </select>
                 <div className="relative">
                     <input 
                       type="text"
@@ -428,6 +469,7 @@ const Admin = () => {
                       <th className="text-left px-6 py-4 text-gray-500 font-bold uppercase text-[10px] tracking-widest">Student</th>
                       <th className="text-left px-6 py-4 text-gray-500 font-bold uppercase text-[10px] tracking-widest">Package</th>
                       <th className="text-left px-6 py-4 text-gray-500 font-bold uppercase text-[10px] tracking-widest text-center">Day</th>
+                      <th className="text-left px-6 py-4 text-gray-500 font-bold uppercase text-[10px] tracking-widest">Referrer</th>
                       <th className="text-right px-6 py-4 text-gray-500 font-bold uppercase text-[10px] tracking-widest">Status</th>
                     </tr>
                   </thead>
@@ -444,6 +486,9 @@ const Admin = () => {
                         </td>
                         <td className="px-6 py-4 text-center">
                           <span className="bg-gray-800 px-2 py-1 rounded text-xs font-bold text-gray-400">D{order.pickup_day}</span>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className="text-xs text-gray-400 font-medium">{order.referrer || "—"}</span>
                         </td>
                         <td className="px-6 py-4 text-right">
                           <span className={`text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider ${

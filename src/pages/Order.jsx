@@ -15,14 +15,17 @@ const Order = () => {
     hostel: "",
     room_number: "",
     package_id: "",
-    pickup_day: ""
+    pickup_day: "",
+    referrer: ""
   });
+  const REFERRERS = ["Amy", "Ann", "Serena", "Eniola", "Ruth", "Cynthia"];
   const [slots, setSlots] = useState([]);
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [touched, setTouched] = useState({});
+  const [showReviewModal, setShowReviewModal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +65,7 @@ const Order = () => {
 
   const isValid = Object.keys(errors).length === 0;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setTouched({
       student_name: true,
@@ -75,9 +78,14 @@ const Order = () => {
       pickup_day: true
     });
 
-    if (!isValid) return;
+    if (isValid) {
+      setShowReviewModal(true);
+    }
+  };
 
+  const handleConfirmOrder = async () => {
     try {
+      setShowReviewModal(false);
       setSubmitting(true);
       const response = await fetch("/api/create-order", {
         method: "POST",
@@ -145,6 +153,18 @@ const Order = () => {
                       )}
                     </div>
                   ))}
+                  <div>
+                    <select
+                      value={formDetails.referrer}
+                      onChange={(e) => setFormDetails({ ...formDetails, referrer: e.target.value })}
+                      className="w-full bg-gray-900 border border-gray-800 rounded-2xl px-5 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-orange-500 transition shadow-sm appearance-none"
+                    >
+                      <option value="">Who referred you? (Optional)</option>
+                      {REFERRERS.map(name => (
+                        <option key={name} value={name}>{name}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               </section>
 
@@ -366,7 +386,67 @@ const Order = () => {
           </div>
           <div>
             <h3 className="text-white text-2xl font-bold mb-2">Secure Checkout</h3>
-            <p className="text-gray-400 max-w-xs mx-auto text-sm">We're redirecting you to Paystack to complete your payment securely.</p>
+            <p className="text-gray-400 max-w-xs mx-auto text-sm">We're redirecting you to Flutterwave to complete your payment securely.</p>
+          </div>
+        </div>
+      )}
+
+      {/* Review Order Modal */}
+      {showReviewModal && (
+        <div className="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] flex items-center justify-center p-6">
+          <div className="bg-gray-900 border border-gray-800 w-full max-w-md rounded-3xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300">
+            <div className="bg-orange-500 p-6 text-center">
+              <h3 className="text-white text-xl font-bold">Review Your Order</h3>
+              <p className="text-orange-100 text-sm">Please confirm your details before paying</p>
+            </div>
+            
+            <div className="p-8 space-y-6">
+              <div className="space-y-4">
+                <div className="flex justify-between items-start border-b border-gray-800 pb-3">
+                  <p className="text-gray-500 text-xs font-bold uppercase">Student</p>
+                  <div className="text-right">
+                    <p className="text-white font-bold">{formDetails.student_name}</p>
+                    <p className="text-gray-400 text-xs">{formDetails.matric_number}</p>
+                  </div>
+                </div>
+                
+                <div className="flex justify-between items-start border-b border-gray-800 pb-3">
+                  <p className="text-gray-500 text-xs font-bold uppercase">Selection</p>
+                  <div className="text-right">
+                    <p className="text-white font-bold">{selectedPackage?.name}</p>
+                    <p className="text-orange-500 text-xs font-bold">Day {formDetails.pickup_day}</p>
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-start border-b border-gray-800 pb-3">
+                  <p className="text-gray-500 text-xs font-bold uppercase">Delivery</p>
+                  <div className="text-right">
+                    <p className="text-white font-bold">{formDetails.hostel}</p>
+                    <p className="text-gray-400 text-xs">Room {formDetails.room_number}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-orange-500/10 border border-orange-500/20 rounded-2xl p-4 flex justify-between items-center">
+                <p className="text-gray-400 text-xs font-bold uppercase">Total to Pay</p>
+                <p className="text-orange-500 text-2xl font-black">₦{( (selectedPackage?.price || 0) / 100).toLocaleString()}</p>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={handleConfirmOrder}
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-orange-500/20"
+                >
+                  Confirm & Pay Now
+                </button>
+                <button
+                  onClick={() => setShowReviewModal(false)}
+                  className="w-full bg-gray-800 hover:bg-gray-700 text-gray-400 font-bold py-4 rounded-xl transition"
+                >
+                  Go Back
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
