@@ -98,8 +98,8 @@ const Home = () => {
             </p>
             <h3 className="text-white text-xl font-bold">Pay securely</h3>
             <p className="text-gray-400 text-sm">
-              Complete your payment securely via card or bank transfer through
-              Paystack.
+              Complete your payment securely via bank transfer or card through
+              Flutterwave. We recommend bank transfer for a faster experience.
             </p>
           </div>
 
@@ -128,7 +128,11 @@ const Home = () => {
         </div>
         <div className="flex mb-6 flex-col md:flex-row gap-8 items-center justify-center">
           <div className="relative rounded-2xl overflow-hidden h-80">
-            <img src="/package-a.jpg" className="w-full h-full object-cover" loading="lazy" />
+            <img
+              src="/package-a.jpg"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
               <p className="text-orange-500 text-xs font-bold tracking-widest mb-1">
@@ -151,15 +155,17 @@ const Home = () => {
           </div>
 
           <div className="relative rounded-2xl overflow-hidden h-80">
-            <img src="/package-b.jpg" className="w-full h-full object-cover" loading="lazy" />
+            <img
+              src="/package-b.jpg"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
               <p className="text-orange-500 text-xs font-bold tracking-widest mb-1">
                 PACKAGE B
               </p>
-              <p className="text-xl font-bold mb-1">
-                Beef Rice + Chicken
-              </p>
+              <p className="text-xl font-bold mb-1">Beef Rice + Chicken</p>
               <p className="text-gray-300 text-sm mb-4">
                 Rich beef rice with grilled chicken
               </p>
@@ -174,6 +180,26 @@ const Home = () => {
               </div>
             </div>
           </div>
+        </div>
+        {/* VR Promotion Banner */}
+        <div className="mx-6 md:mx-24 rounded-2xl bg-gray-900 border border-orange-500/30 px-8 md:px-16 py-12 flex flex-col md:flex-row items-center justify-between gap-6 mb-8 shadow-2xl shadow-orange-500/10">
+          <div>
+            <p className="text-orange-500 text-xs font-bold tracking-widest mb-2">
+              SPECIAL PROMOTION 🎮
+            </p>
+            <h2 className="text-white text-3xl font-bold mb-2">
+              Free VR Game Session!
+            </h2>
+            <p className="text-gray-400 text-sm max-w-md">
+              The first 50 orders of **Package B (Beef Rice)** qualify for a free session of VR games at our stand. Don't miss out!
+            </p>
+          </div>
+          <Link
+            to="/order"
+            className="bg-orange-500 text-white font-bold px-8 py-4 rounded-full whitespace-nowrap hover:bg-orange-600 transition"
+          >
+            Claim My VR Spot
+          </Link>
         </div>
         {/* Free Delivery Banner */}
         <div className="mx-6 md:mx-24 rounded-2xl bg-orange-500 px-8 md:px-16 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
@@ -271,57 +297,6 @@ const Home = () => {
             </Link>
           </div>
         </div>
-
-        <div className="border-t border-gray-800 mt-8 pt-6 text-center">
-          <p className="text-gray-600 text-xs">
-            © 2026 Maxie's Kitchen. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </>
-  );
-};
-
-export default Home;
-v>
-
-        <div className="border-t border-gray-800 mt-8 pt-6 text-center">
-          <p className="text-gray-600 text-xs">
-            © 2026 Maxie's Kitchen. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </>
-  );
-};
-
-export default Home;
-el="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition text-sm"
-            >
-              💬 Chat us on WhatsApp
-            </a>
-            <Link
-              to="/order"
-              className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-full transition text-sm"
-            >
-              Place Order
-            </Link>
-          </div>
-        </div>
-
-        <div className="border-t border-gray-800 mt-8 pt-6 text-center">
-          <p className="text-gray-600 text-xs">
-            © 2026 Maxie's Kitchen. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </>
-  );
-};
-
-export default Home;
-v>
 
         <div className="border-t border-gray-800 mt-8 pt-6 text-center">
           <p className="text-gray-600 text-xs">
