@@ -14,18 +14,25 @@ export default async function (req, res) {
   }
 
   try {
-    const hash = crypto
-      .createHmac("sha512", process.env.PAYSTACK_SECRET_KEY)
-      .update(JSON.stringify(req.body))
-      .digest("hex");
+    // const hash = crypto
+    //   .createHmac("sha512", process.env.PAYSTACK_SECRET_KEY)
+    //   .update(JSON.stringify(req.body))
+    //   .digest("hex");
 
-    if (hash !== req.headers["x-paystack-signature"]) {
+    // if (hash !== req.headers["x-paystack-signature"]) {
+    //   return res.status(401).json({ message: "Invalid signature" });
+    // }
+    // Flutterwave sends a hash in the headers
+    const flwHash = req.headers["verif-hash"];
+    if (flwHash !== process.env.FLW_WEBHOOK_HASH) {
       return res.status(401).json({ message: "Invalid signature" });
     }
     const event = req.body.event;
-    const reference = req.body.data.reference;
+    const reference = req.body.data.tx_ref;
+    // const event = req.body.event;
+    // const reference = req.body.data.reference;
 
-    if (event === "charge.success") {
+    if (event === "charge.completed") {
       const { error: updateError } = await supabase
         .from("orders")
         .update({ payment_status: "paid" })

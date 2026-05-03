@@ -86,29 +86,51 @@ export default async function (req, res) {
         error: insertError,
       });
     }
-
-    //   paystack initiallization
-    const paystackResponse = await fetch(
-      "https://api.paystack.co/transaction/initialize",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          amount: packageData.price,
-          reference: ticketCode,
-          callback_url: "https://tradefair-nu.vercel.app/order/success",
-        }),
+    const flwResponse = await fetch("https://api.flutterwave.com/v3/payments", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
+        "Content-Type": "application/json",
       },
-    );
-    const paystackData = await paystackResponse.json();
+      body: JSON.stringify({
+        tx_ref: ticketCode,
+        amount: packageData.price / 100, // Flutterwave uses naira not kobo
+        currency: "NGN",
+        redirect_url: "https://tradefair-nu.vercel.app/order/success",
+        customer: {
+          email: email,
+          name: student_name,
+          phonenumber: phone_number,
+        },
+      }),
+    });
+    const flwData = await flwResponse.json();
     return res.status(200).json({
       message: "Success",
-      authorization_url: paystackData.data.authorization_url,
+      authorization_url: flwData.data.link,
     });
+    //   paystack initiallization
+    // const paystackResponse = await fetch(
+    //   "https://api.paystack.co/transaction/initialize",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       email: email,
+    //       amount: packageData.price,
+    //       reference: ticketCode,
+    //       callback_url: "https://tradefair-nu.vercel.app/order/success",
+    //     }),
+    //   },
+    // );
+    // const paystackData = await paystackResponse.json();
+    // return res.status(200).json({
+    //   message: "Success",
+    //   authorization_url: paystackData.data.authorization_url,
+    // });
   } catch (error) {
     return res
       .status(500)

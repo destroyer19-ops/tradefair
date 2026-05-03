@@ -5,7 +5,8 @@ import { supabase } from "../lib/supabase";
 
 const OrderSuccess = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const reference = searchParams.get("reference");
+  // const reference = searchParams.get("reference");
+  const reference = searchParams.get("tx_ref") || searchParams.get("reference");
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
