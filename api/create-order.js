@@ -96,7 +96,7 @@ export default async function (req, res) {
       },
       body: JSON.stringify({
         tx_ref: ticketCode,
-        amount: packageData.price / 100, // Flutterwave uses naira not kobo
+        amount: packageData.price, // Flutterwave expects amount in smallest currency unit (kobo)
         currency: "NGN",
         redirect_url: "https://tradefair-nu.vercel.app/order/success",
         customer: {
