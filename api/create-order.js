@@ -105,10 +105,12 @@ export default async function (req, res) {
       }),
     });
     const flwData = await flwResponse.json();
+    console.log("flutterwave response:", JSON.stringify(flwData));
     return res.status(200).json({
       message: "Success",
       authorization_url: flwData.data.link,
     });
+
     //   paystack initiallization
     // const paystackResponse = await fetch(
     //   "https://api.paystack.co/transaction/initialize",
