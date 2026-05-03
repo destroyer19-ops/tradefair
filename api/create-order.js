@@ -84,7 +84,7 @@ export default async function (req, res) {
 
     if (insertError) {
       return res.status(500).json({
-        message: "Error occured in fetching availability data",
+        message: "Error occurred during order insertion", // Corrected message
         error: insertError,
       });
     }
