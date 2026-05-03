@@ -113,7 +113,7 @@ const Order = () => {
       {/* Header */}
       <div className="px-6 md:px-24 py-6 border-b border-gray-800 flex items-center justify-between sticky top-0 bg-[#0f0f0f]/80 backdrop-blur-md z-30">
         <Link to="/" className="flex items-center gap-3">
-          <img src="/logo.png" alt="Maxie's Kitchen Logo" className="h-8 w-auto" />
+          <img src="/logo.jpg" alt="Maxie's Kitchen Logo" className="h-8 w-auto" />
           <h1 className="text-orange-500 font-bold text-xl hover:opacity-80 transition">Maxie's Kitchen</h1>
         </Link>
         <p className="text-gray-500 text-xs font-bold tracking-widest uppercase">Trade Fair 2026</p>
