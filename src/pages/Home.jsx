@@ -19,7 +19,7 @@ const Home = () => {
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-500/5 blur-[120px] rounded-full"></div>
         </div>
 
-        <div className="flex-grow flex flex-col md:flex-row items-center relative z-10 px-6 md:px-24 pt-20 pb-32 md:pb-0">
+        <div className="flex-grow flex flex-col md:flex-row items-center relative z-10 px-6 md:px-24 pt-20 pb-12">
           {/* Left Side: Massive Typography */}
           <div className="w-full md:w-3/5 flex flex-col items-center md:items-start text-center md:text-left">
             <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 px-3 py-1.5 rounded-full mb-8 backdrop-blur-md">
@@ -36,14 +36,14 @@ const Home = () => {
               Order your legendary Maxie's Kitchen meal in advance. Fresh, hot, and ready for pickup at our stand.
             </p>
 
-            <div className="relative group">
+            <div className="relative group mb-12">
               {/* Floating VR Badge Overlapping CTA */}
               <div className="absolute -top-12 -right-12 md:-right-16 z-20 rotate-12 animate-pulse transition-transform duration-500 group-hover:rotate-0">
                 <div className="bg-orange-500 text-white p-4 rounded-2xl shadow-[0_0_50px_rgba(234,88,12,0.6)] border-2 border-white/20">
                   <div className="flex flex-col items-center text-center">
                     <span className="text-2xl mb-1">🎮</span>
                     <span className="text-[10px] font-black uppercase leading-none">FREE VR</span>
-                    <span className="text-[8px] font-bold opacity-80 mt-0.5 uppercase tracking-tighter">Package B Only</span>
+                    <span className="text-[8px] font-bold opacity-80 mt-0.5 uppercase tracking-tighter">PKG B ONLY</span>
                   </div>
                 </div>
               </div>
@@ -57,6 +57,24 @@ const Home = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
+            </div>
+
+            {/* Aggressive Stats Bar (Integrated in flow) */}
+            <div className="flex flex-row items-center justify-center md:justify-start gap-8 md:gap-16 pt-8 border-t border-white/10 w-full">
+              <div className="group cursor-default text-center md:text-left">
+                <p className="text-3xl md:text-4xl text-orange-500 font-black tracking-tighter group-hover:scale-110 transition-transform">1000</p>
+                <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mt-1">Total Slots</p>
+              </div>
+              <div className="w-px h-10 bg-white/10"></div>
+              <div className="group cursor-default text-center md:text-left">
+                <p className="text-3xl md:text-4xl text-orange-500 font-black tracking-tighter group-hover:scale-110 transition-transform">3</p>
+                <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mt-1">Event Days</p>
+              </div>
+              <div className="w-px h-10 bg-white/10"></div>
+              <div className="group cursor-default text-center md:text-left">
+                <p className="text-3xl md:text-4xl text-orange-500 font-black tracking-tighter group-hover:scale-110 transition-transform">2</p>
+                <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mt-1">Pro Menus</p>
+              </div>
             </div>
           </div>
 
