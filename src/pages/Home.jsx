@@ -5,12 +5,26 @@ const Home = () => {
   return (
     <>
       <div className="overflow-hidden relative h-screen bg-[#0a0a0a]">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-black to-black"></div>
-        <div className="flex h-screen flex-col md:flex-row items-center">
+        {/* Visual Background */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/package-b.jpg" 
+            className="w-full h-full object-cover opacity-20 blur-[2px]" 
+            alt="background"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-black to-black"></div>
+        </div>
+
+        <div className="flex h-screen flex-col md:flex-row items-center relative z-10">
           <div className="z-10 w-full md:w-1/2 relative gap-6 h-screen text-white flex flex-col text-center md:text-left items-center md:items-start pl-6 md:pl-24 justify-center pb-24">
-            <h6 className="font-medium px-4 py-1 text-orange-500 bg-white rounded-full">
-              Trade Fair 2026
-            </h6>
+            <div className="flex flex-col md:flex-row items-center gap-3">
+              <h6 className="font-medium px-4 py-1 text-orange-500 bg-white rounded-full text-xs">
+                Trade Fair 2026
+              </h6>
+              <span className="animate-bounce bg-orange-500 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter shadow-lg shadow-orange-500/50">
+                🎮 Free VR with Package B
+              </span>
+            </div>
             <h1 className="text-4xl md:text-6xl font-bold">Maxie's Kitchen</h1>
             <p className="text-gray-300 font-normal text-lg">
               Order your meal in advance, skip the queue
