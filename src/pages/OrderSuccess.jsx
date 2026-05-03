@@ -82,13 +82,16 @@ const OrderSuccess = () => {
           <div ref={ticketRef} className="p-4 bg-[#0f0f0f]">
             <div className="bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden shadow-2xl">
               {/* Ticket header */}
-              <div className="bg-orange-500 px-6 py-4 flex items-center justify-between">
-                <h2 className="font-bold text-lg text-white">Maxie's Kitchen</h2>
-                <p className="text-sm text-white/80">Trade Fair 2026</p>
+              <div className="bg-primary-orange px-6 py-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <img src="/logo.png" alt="Maxie's Kitchen Logo" className="h-6 w-auto" />
+                  <h2 className="font-bold text-lg text-text-primary">Maxie's Kitchen</h2>
+                </div>
+                <p className="text-sm text-text-primary/80">Trade Fair 2026</p>
               </div>
 
               {/* Ticket body */}
-              <div className="px-6 py-6 flex flex-col items-center gap-6">
+              <div className="px-6 py-6 flex flex-col items-center gap-6 bg-background-dark">
                 {/* QR Code */}
                 <div className="bg-white p-4 rounded-xl shadow-inner">
                   <QRCodeSVG value={order.ticket_code} size={180} />

@@ -7,12 +7,14 @@ import Admin from "./pages/Admin";
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/order" element={<Order />} />
-      <Route path="/order/success" element={<OrderSuccess />} />
-      <Route path="/admin" element={<Admin />} />
-    </Routes>
+    <div className="bg-background-dark text-text-primary"> {/* Apply global colors */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/order" element={<Order />} />
+        <Route path="/order/success" element={<OrderSuccess />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+    </div>
   );
 };
 
