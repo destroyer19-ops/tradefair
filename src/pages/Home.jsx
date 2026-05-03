@@ -17,14 +17,24 @@ const Home = () => {
 
         <div className="flex h-screen flex-col md:flex-row items-center relative z-10">
           <div className="z-10 w-full md:w-1/2 relative gap-6 h-screen text-white flex flex-col text-center md:text-left items-center md:items-start pl-6 md:pl-24 justify-center pb-24">
-            <div className="flex flex-col md:flex-row items-center gap-3">
-              <h6 className="font-medium px-4 py-1 text-orange-500 bg-white rounded-full text-xs">
-                Trade Fair 2026
-              </h6>
-              <span className="animate-bounce bg-orange-500 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter shadow-lg shadow-orange-500/50">
-                🎮 Free VR with Package B
-              </span>
+            <h6 className="font-medium px-4 py-1 text-orange-500 bg-white rounded-full text-xs">
+              Trade Fair 2026
+            </h6>
+            
+            {/* Bold VR Promotion CTA */}
+            <div className="bg-gradient-to-r from-orange-600 to-orange-500 p-[1px] rounded-2xl shadow-[0_0_50px_-12px_rgba(234,88,12,0.5)] group">
+              <div className="bg-[#0a0a0a]/90 backdrop-blur-xl px-6 py-4 rounded-2xl flex items-center gap-4 border border-orange-500/20 transition-all duration-500 group-hover:bg-transparent">
+                <div className="bg-orange-500 p-3 rounded-xl text-2xl shadow-lg shadow-orange-500/20 animate-pulse">
+                  🎮
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-orange-500 text-[10px] font-black uppercase tracking-[0.3em] mb-1">Exclusive Bonus</span>
+                  <h3 className="text-white font-black text-xl leading-none">FREE VR SESSION</h3>
+                  <p className="text-gray-400 text-[10px] mt-1 uppercase font-bold tracking-widest">With Every Package B Order</p>
+                </div>
+              </div>
             </div>
+
             <h1 className="text-4xl md:text-6xl font-bold">Maxie's Kitchen</h1>
             <p className="text-gray-300 font-normal text-lg">
               Order your meal in advance, skip the queue
