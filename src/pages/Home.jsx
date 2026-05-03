@@ -159,7 +159,7 @@ const Home = () => {
           <h2 className="text-4xl md:text-6xl font-black text-white italic tracking-tighter uppercase">SELECT YOUR <span className="text-orange-500">PACKAGE.</span></h2>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8 items-center justify-center max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row gap-8 items-center justify-center max-w-6xl mx-auto px-6">
           {[
             { 
               id: 'a', 
@@ -180,38 +180,38 @@ const Home = () => {
             }
           ].map((pkg) => (
             <div key={pkg.id} className="w-full md:w-1/2 group relative">
-              <div className="relative rounded-[2.5rem] overflow-hidden aspect-[4/5] md:aspect-square lg:aspect-[4/5]">
+              <div className="relative rounded-[2rem] overflow-hidden aspect-[4/5] md:aspect-square lg:aspect-[4/5]">
                 <img src={pkg.img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-90" />
                 
                 {/* Glassmorphism Card Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 transition-transform duration-500">
+                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"></div>
                     
                     <div className="relative z-10">
-                      <div className="flex justify-between items-start mb-4">
-                        <span className="bg-orange-500 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter">
+                      <div className="flex justify-between items-start mb-3">
+                        <span className="bg-orange-500 text-white text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-tighter">
                           {pkg.tag}
                         </span>
                         {pkg.popular && (
-                          <span className="animate-pulse text-orange-500 text-[10px] font-black uppercase tracking-widest">
+                          <span className="animate-pulse text-orange-500 text-[9px] font-black uppercase tracking-widest">
                             🔥 MOST WANTED
                           </span>
                         )}
                       </div>
                       
-                      <h3 className="text-2xl md:text-3xl font-black text-white mb-2 italic uppercase tracking-tighter">{pkg.name}</h3>
-                      <p className="text-gray-400 text-sm mb-6 font-medium line-clamp-2">{pkg.desc}</p>
+                      <h3 className="text-xl md:text-3xl font-black text-white mb-2 italic uppercase tracking-tighter">{pkg.name}</h3>
+                      <p className="text-gray-400 text-xs md:text-sm mb-6 font-medium line-clamp-2">{pkg.desc}</p>
                       
                       <div className="flex items-center justify-between gap-4">
                         <div className="flex flex-col">
-                          <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest leading-none">Price</span>
-                          <span className="text-white text-3xl font-black italic tracking-tighter">₦{pkg.price}</span>
+                          <span className="text-gray-500 text-[9px] font-black uppercase tracking-widest leading-none">Price</span>
+                          <span className="text-white text-2xl md:text-3xl font-black italic tracking-tighter">₦{pkg.price}</span>
                         </div>
                         <Link
                           to="/order"
-                          className="bg-orange-500 hover:bg-orange-600 text-white text-sm font-black px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg shadow-orange-500/20 uppercase tracking-widest"
+                          className="bg-orange-500 hover:bg-orange-600 text-white text-xs md:text-sm font-black px-6 md:px-8 py-3 md:py-4 rounded-xl transition-all duration-300 shadow-lg shadow-orange-500/20 uppercase tracking-widest"
                         >
                           Order
                         </Link>
