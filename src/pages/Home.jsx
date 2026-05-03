@@ -301,13 +301,12 @@ const Home = () => {
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-20">
             <div>
-              <img src="/logo.png" alt="Maxie's Kitchen Logo" className="h-10 w-auto mb-4" />
+              <img src="/logo.jpg" alt="Maxie's Kitchen Logo" className="h-10 w-auto mb-4" />
               <h3 className="text-3xl font-black text-primary-orange italic uppercase tracking-tighter mb-6">Maxie's Kitchen</h3>
               <p className="text-text-secondary font-medium leading-relaxed uppercase text-xs tracking-widest">Trade Fair 2026 — The elite pre-order experience. High-quality fuel for the bold.</p>
             </div>
 
-            <div className="flex flex-col gap-6 items-start md:items-end">
-              <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.3em]">Communication Lines</p>
+            <div className="flex flex-col gap-6 items-start md:items-end">              <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.3em]">Communication Lines</p>
               <a href="https://wa.me/2349033101546" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-white hover:text-orange-500 transition-colors group">
                 <span className="text-sm font-black uppercase tracking-widest">Connect on WhatsApp</span>
                 <span className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center group-hover:bg-orange-500/20 transition-colors">💬</span>
