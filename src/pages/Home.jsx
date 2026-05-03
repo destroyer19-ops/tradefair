@@ -191,7 +191,8 @@ const Home = () => {
               Free VR Game Session!
             </h2>
             <p className="text-gray-400 text-sm max-w-md">
-              The first 50 orders of **Package B (Beef Rice)** qualify for a free session of VR games at our stand. Don't miss out!
+              The first 50 orders of **Package B (Beef Rice)** qualify for a
+              free session of VR games at our stand. Don't miss out!
             </p>
           </div>
           <Link
