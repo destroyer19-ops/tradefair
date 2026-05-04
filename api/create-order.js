@@ -96,7 +96,7 @@ export default async function (req, res) {
       },
       body: JSON.stringify({
         tx_ref: ticketCode,
-        amount: packageData.price / 100, // Correcting NGN 5000 to NGN 50 (kobo) for specific items if needed
+        amount: (packageData.price === 500000 ? 5000 : packageData.price), // Correcting NGN 5000 (500000 kobo) to NGN 50 (5000 kobo) if fetched value is 500000 kobo
         currency: "NGN",
         redirect_url: "https://tradefair-nu.vercel.app/order/success",
         customer: {

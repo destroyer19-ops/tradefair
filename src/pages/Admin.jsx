@@ -333,6 +333,11 @@ const Admin = () => {
                     <span className="text-[10px] text-gray-500 font-bold uppercase">Active</span>
                 </div>
               </div>
+                <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    <span className="text-[10px] text-gray-500 font-bold uppercase">Active</span>
+                </div>
+              </div>
               <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden aspect-square relative">
                 <div id="reader" className="w-full h-full"></div>
                 {/* Visual scanner guide */}

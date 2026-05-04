@@ -47,7 +47,7 @@ export default async function (req, res) {
         .single();
       await supabase.rpc("increment_slot", { slot_day: orderData.pickup_day });
 
-      await fetch("https://api.brevo.com/v3/smtp/email", {
+      const brevoResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
         method: "POST",
         headers: {
           "api-key": process.env.BREVO_API_KEY,
@@ -73,6 +73,8 @@ export default async function (req, res) {
     `,
         }),
       });
+      const brevoResult = await brevoResponse.json();
+      console.log("brevo result:", JSON.stringify(brevoResult));
     }
     return res.status(200).json({ message: "Webhook received" });
   } catch (error) {

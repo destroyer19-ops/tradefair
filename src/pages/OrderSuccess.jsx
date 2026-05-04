@@ -73,13 +73,23 @@ const OrderSuccess = () => {
           <div className="text-center mb-8">
             <div className="text-5xl mb-4">🎉</div>
             <h1 className="text-3xl font-bold">Order Confirmed!</h1>
-            <p className="text-gray-400 mt-2">
+            <p className="text-text-secondary mt-2">
               Your meal has been reserved. See you at the fair!
             </p>
+            {/* VR Game Eligibility Message */}
+            {order.vr_game_eligible && (
+              <div className="mt-4 p-3 bg-primary-orange/10 border border-primary-orange/20 rounded-xl flex items-center gap-3">
+                <span className="text-xl animate-pulse">🎮</span>
+                <div>
+                  <p className="text-primary-orange text-[10px] font-bold uppercase tracking-widest">Special Offer</p>
+                  <p className="text-white text-sm font-bold leading-tight">You've qualified for a free VR session!</p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Ticket card wrapper for capture */}
-          <div ref={ticketRef} className="p-4 bg-[#0f0f0f]">
+          <div ref={ticketRef} className="p-4 bg-background-dark">
             <div className="bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden shadow-2xl">
               {/* Ticket header */}
               <div className="bg-primary-orange px-6 py-4 flex items-center justify-between">
