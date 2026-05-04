@@ -8,11 +8,12 @@ import confetti from "canvas-confetti";
 const OrderSuccess = () => {
   const [searchParams] = useSearchParams();
   const reference = searchParams.get("tx_ref") || searchParams.get("reference");
+  const status = searchParams.get("status");
+
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState(false);
   const ticketRef = useRef(null);
-
   useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -22,15 +23,12 @@ const OrderSuccess = () => {
           .eq("ticket_code", reference)
           .single();
         if (error) throw new Error(error.message);
-
         setOrder(data);
-        
-        // Trigger confetti on successful load
         confetti({
           particleCount: 150,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#f97316', '#ffffff', '#000000']
+          colors: ["#f97316", "#ffffff", "#000000"],
         });
       } catch (err) {
         console.error(err);
@@ -39,9 +37,12 @@ const OrderSuccess = () => {
       }
     };
 
-    if (reference) fetchOrder();
-  }, [reference]);
-
+    if (reference && status === "successful") {
+      fetchOrder();
+    } else {
+      setLoading(false); // stop loading if status isn't successful
+    }
+  }, [reference, status]);
   const handleDownload = async () => {
     if (!ticketRef.current) return;
     setDownloading(true);
@@ -63,10 +64,41 @@ const OrderSuccess = () => {
 
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-white flex items-center justify-center px-6 py-12">
-      {loading ? (
+      {!loading && (status === "failed" || status === "cancelled") ? (
+        <div className="text-center max-w-md">
+          <div className="text-5xl mb-4">❌</div>
+          <h1 className="text-3xl font-bold mb-2">
+            Payment {status === "cancelled" ? "Cancelled" : "Failed"}
+          </h1>
+          <p className="text-gray-400 mb-2">
+            {status === "cancelled"
+              ? "You cancelled the payment. No money was deducted."
+              : "Your payment was not completed. No money was deducted."}
+          </p>
+          <p className="text-gray-500 text-sm mb-8">
+            Your slot reservation has been released.
+          </p>
+
+          <a
+            href="/order"
+            className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-full transition inline-block"
+          >
+            Try Again
+          </a>
+        </div>
+      ) : loading ? (
         <div className="text-gray-400">Loading your ticket...</div>
       ) : !order ? (
-        <div className="text-gray-400">Ticket not found.</div>
+        <div className="text-center max-w-md">
+          <div className="text-5xl mb-4">⚠️</div>
+          <h1 className="text-3xl font-bold mb-2">Something went wrong</h1>
+          <p className="text-gray-400 mb-8">
+            We couldn't find your ticket. Please contact us on WhatsApp.
+          </p>
+          <a href="/" className="text-orange-500 hover:underline">
+            ← Back to home
+          </a>
+        </div>
       ) : (
         <div className="w-full max-w-md">
           {/* Success message */}
@@ -81,8 +113,12 @@ const OrderSuccess = () => {
               <div className="mt-4 p-3 bg-primary-orange/10 border border-primary-orange/20 rounded-xl flex items-center gap-3">
                 <span className="text-xl animate-pulse">🎮</span>
                 <div>
-                  <p className="text-primary-orange text-[10px] font-bold uppercase tracking-widest">Special Offer</p>
-                  <p className="text-white text-sm font-bold leading-tight">You've qualified for a free VR session!</p>
+                  <p className="text-primary-orange text-[10px] font-bold uppercase tracking-widest">
+                    Special Offer
+                  </p>
+                  <p className="text-white text-sm font-bold leading-tight">
+                    You've qualified for a free VR session!
+                  </p>
                 </div>
               </div>
             )}
@@ -94,8 +130,14 @@ const OrderSuccess = () => {
               {/* Ticket header */}
               <div className="bg-primary-orange px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <img src="/logo.png" alt="Maxie's Kitchen Logo" className="h-6 w-auto" />
-                  <h2 className="font-bold text-lg text-text-primary">Maxie's Kitchen</h2>
+                  <img
+                    src="/logo.png"
+                    alt="Maxie's Kitchen Logo"
+                    className="h-6 w-auto"
+                  />
+                  <h2 className="font-bold text-lg text-text-primary">
+                    Maxie's Kitchen
+                  </h2>
                 </div>
                 <p className="text-sm text-text-primary/80">Trade Fair 2026</p>
               </div>
@@ -126,25 +168,33 @@ const OrderSuccess = () => {
                     <p className="text-gray-400 text-xs tracking-widest mb-1">
                       NAME
                     </p>
-                    <p className="font-medium text-sm truncate">{order.student_name}</p>
+                    <p className="font-medium text-sm truncate">
+                      {order.student_name}
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-400 text-xs tracking-widest mb-1">
                       PACKAGE
                     </p>
-                    <p className="font-medium text-sm">{order.packages?.name}</p>
+                    <p className="font-medium text-sm">
+                      {order.packages?.name}
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-400 text-xs tracking-widest mb-1">
                       PICKUP DAY
                     </p>
-                    <p className="font-medium text-sm">Day {order.pickup_day}</p>
+                    <p className="font-medium text-sm">
+                      Day {order.pickup_day}
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-400 text-xs tracking-widest mb-1">
                       STATUS
                     </p>
-                    <p className="text-green-400 font-bold text-sm">✓ Confirmed</p>
+                    <p className="text-green-400 font-bold text-sm">
+                      ✓ Confirmed
+                    </p>
                   </div>
                 </div>
               </div>
