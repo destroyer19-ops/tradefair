@@ -562,6 +562,9 @@ const Admin = () => {
                       <th className="text-right px-6 py-4 text-gray-500 font-bold uppercase text-[10px] tracking-widest">
                         Status
                       </th>
+                      <th className="text-left px-6 py-4 text-gray-500 font-bold uppercase text-[10px] tracking-widest">
+                        VR
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-800">
@@ -607,6 +610,15 @@ const Admin = () => {
                             >
                               {order.payment_status}
                             </span>
+                          </td>
+                          <td className="px-6 py-4">
+                            {order.vr_eligible ? (
+                              <span className="text-xs font-bold text-purple-400">
+                                🎮 Yes
+                              </span>
+                            ) : (
+                              <span className="text-xs text-gray-600">—</span>
+                            )}
                           </td>
                         </tr>
                       ))

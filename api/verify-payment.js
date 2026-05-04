@@ -39,6 +39,30 @@ export default async function (req, res) {
         .eq("ticket_code", reference);
       if (updateError) {
         return res.status(500).json({ message: "Failed to update order" });
+      } // Check VR eligibility — only for Package B, first 50 orders
+      const { count } = await supabase
+        .from("orders")
+        .select("*", { count: "exact", head: true })
+        .eq("payment_status", "paid")
+        .eq("vr_eligible", true);
+
+      if (count < 50) {
+        // Check if this order is Package B
+        const { data: pkgCheck } = await supabase
+          .from("packages")
+          .select("name")
+          .eq("id", orderData.package_id)
+          .single();
+
+        if (
+          pkgCheck?.name?.toLowerCase().includes("package b") ||
+          pkgCheck?.name?.toLowerCase().includes("beef rice")
+        ) {
+          await supabase
+            .from("orders")
+            .update({ vr_eligible: true })
+            .eq("ticket_code", reference);
+        }
       }
       const { data: orderData } = await supabase
         .from("orders")

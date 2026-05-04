@@ -37,7 +37,7 @@ const OrderSuccess = () => {
       }
     };
 
-    if (reference && status === "successful") {
+    if (reference && (status === "successful" || status === "completed")) {
       fetchOrder();
     } else {
       setLoading(false); // stop loading if status isn't successful
@@ -64,7 +64,7 @@ const OrderSuccess = () => {
 
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-white flex items-center justify-center px-6 py-12">
-      {!loading && (status === "failed" || status === "cancelled") ? (
+      {!loading && status !== "completed" && status !== "successful" ? (
         <div className="text-center max-w-md">
           <div className="text-5xl mb-4">❌</div>
           <h1 className="text-3xl font-bold mb-2">
@@ -109,7 +109,7 @@ const OrderSuccess = () => {
               Your meal has been reserved. See you at the fair!
             </p>
             {/* VR Game Eligibility Message */}
-            {order.vr_game_eligible && (
+            {order.vr_eligible && (
               <div className="mt-4 p-3 bg-primary-orange/10 border border-primary-orange/20 rounded-xl flex items-center gap-3">
                 <span className="text-xl animate-pulse">🎮</span>
                 <div>
