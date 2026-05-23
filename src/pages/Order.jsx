@@ -175,7 +175,7 @@ const Order = () => {
               <section>
                 <div className="flex items-center gap-3 mb-6">
                   <span className="w-8 h-8 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-500 flex items-center justify-center text-sm font-bold">2</span>
-                  <h3 className="text-white font-bold tracking-tight uppercase text-sm">Delivery Location</h3>
+                  <h3 className="text-white font-bold tracking-tight uppercase text-sm">Hall Details</h3>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <input
@@ -330,10 +330,6 @@ const Order = () => {
                       <p className="text-gray-500 font-medium">Subtotal</p>
                       <p className="text-white font-bold">₦{(selectedPackage.price / 100).toLocaleString()}</p>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <p className="text-gray-500 font-medium">Delivery</p>
-                      <p className="text-green-500 font-bold uppercase text-[10px]">Free</p>
-                    </div>
                   </div>
 
                   <div className="pt-6 border-t border-gray-800">
@@ -422,7 +418,7 @@ const Order = () => {
                 </div>
 
                 <div className="flex justify-between items-start border-b border-gray-800 pb-3">
-                  <p className="text-gray-500 text-xs font-bold uppercase">Delivery</p>
+                  <p className="text-gray-500 text-xs font-bold uppercase">Hall Details</p>
                   <div className="text-right">
                     <p className="text-white font-bold">{formDetails.hostel}</p>
                     <p className="text-gray-400 text-xs">Room {formDetails.room_number}</p>

@@ -256,17 +256,6 @@ const Home = () => {
               <Link to="/order" className="bg-white text-black font-black px-8 py-4 rounded-2xl uppercase text-xs tracking-[0.2em] hover:bg-orange-500 hover:text-white transition-colors">Claim Now</Link>
             </div>
           </div>
-
-          {/* Delivery Promotion */}
-          <div className="flex-1 bg-orange-600 rounded-[2.5rem] p-10 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-8 text-6xl opacity-20 group-hover:scale-125 transition-transform duration-500 select-none">🚀</div>
-            <div className="relative z-10 text-black">
-              <span className="text-white text-xs font-black tracking-[0.3em] uppercase mb-4 block">Fast Strike</span>
-              <h3 className="text-3xl font-black text-black italic mb-4 uppercase tracking-tighter leading-none">FREE HOSTEL<br/>DELIVERY.</h3>
-              <p className="text-black/70 text-sm font-bold mb-8 max-w-xs leading-relaxed">The first 50 orders qualify for elite delivery to designated hostel points. Act fast.</p>
-              <Link to="/order" className="bg-black text-white font-black px-8 py-4 rounded-2xl uppercase text-xs tracking-[0.2em] hover:bg-white hover:text-black transition-colors">Secure Spot</Link>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -282,8 +271,7 @@ const Home = () => {
             {[
               { q: "HOW DO I PLACE AN ORDER?", a: "Hit the 'ORDER' button, fill your details, select your package and pickup day, then pay via Flutterwave. Bank transfer is fastest." },
               { q: "HOW WILL I RECEIVE MY TICKET?", a: "Instant deployment. Your unique QR code ticket is sent to your email immediately after payment confirmation." },
-              { q: "HOW DO I COLLECT MY FUEL?", a: "Advance to the Maxie's Kitchen stand on your chosen day. Flash your QR code to our team to receive your meal." },
-              { q: "CAN I SECURE FREE DELIVERY?", a: "Only if you act now. The first 50 orders are eligible for designated hostel delivery. Speed is key." }
+              { q: "HOW DO I COLLECT MY FUEL?", a: "Advance to the Maxie's Kitchen stand on your chosen day. Flash your QR code to our team to receive your meal." }
             ].map((item, index) => (
               <div key={index} className="bg-gray-900/30 border-b border-white/5 p-8 hover:bg-white/5 transition-colors">
                 <p className="text-white font-black text-lg mb-4 italic uppercase tracking-tight">{item.q}</p>
