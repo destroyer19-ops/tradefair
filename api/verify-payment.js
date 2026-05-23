@@ -33,13 +33,26 @@ export default async function (req, res) {
     // const reference = req.body.data.reference;
 
     if (event === "charge.completed") {
+      const { data: orderData, error: fetchError } = await supabase
+        .from("orders")
+        .select("*")
+        .eq("ticket_code", reference)
+        .single();
+
+      if (fetchError || !orderData) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+
       const { error: updateError } = await supabase
         .from("orders")
         .update({ payment_status: "paid" })
         .eq("ticket_code", reference);
+
       if (updateError) {
         return res.status(500).json({ message: "Failed to update order" });
-      } // Check VR eligibility — only for Package B, first 50 orders
+      }
+
+      // Check VR eligibility — only for Package B, first 50 orders
       const { count } = await supabase
         .from("orders")
         .select("*", { count: "exact", head: true })
@@ -64,11 +77,7 @@ export default async function (req, res) {
             .eq("ticket_code", reference);
         }
       }
-      const { data: orderData } = await supabase
-        .from("orders")
-        .select("*")
-        .eq("ticket_code", reference)
-        .single();
+
       await supabase.rpc("increment_slot", { slot_day: orderData.pickup_day });
 
       const brevoResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
